@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32505.173
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HookMaker", "HookMaker.csproj", "{2E5766D7-B8B3-4E5A-9604-733D50A8FAE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E5766D7-B8B3-4E5A-9604-733D50A8FAE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E5766D7-B8B3-4E5A-9604-733D50A8FAE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E5766D7-B8B3-4E5A-9604-733D50A8FAE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E5766D7-B8B3-4E5A-9604-733D50A8FAE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B878C1F2-1B42-4A30-8E57-01863580BDEA}
+	EndGlobalSection
+EndGlobal
