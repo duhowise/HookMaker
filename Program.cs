@@ -17,7 +17,7 @@ try
     // Add services to the container.
    builder.Services.AddDbContext<WebHooksDbContext>(options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
     });
     builder.Services.AddSingleton<IPersistentQueue>(provider => new PersistentQueue(Directory.GetCurrentDirectory()));
     builder.Services.AddMediatR(typeof(Program).Assembly);
