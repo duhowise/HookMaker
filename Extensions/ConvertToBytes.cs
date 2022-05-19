@@ -13,7 +13,7 @@ public static class ConvertToBytes
 
     }
    /// <summary>
-   /// converts any byte array back to original object specified by typed constraint
+   /// converts any byte array back to original object specified by generic typed constraint
    /// </summary>
    /// <typeparam name="T"></typeparam>
    /// <param name="obj"></param>
