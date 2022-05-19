@@ -19,7 +19,7 @@ namespace HookMaker.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Notification notification)
         {
-            await _mediator.Send(notification);
+            await _mediator.Publish(notification);
             return Accepted();
         }
     }

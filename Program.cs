@@ -1,6 +1,10 @@
 using System.Text.Json;
+using DiskQueue;
+using HookMaker.Data.Context;
+using HookMaker.Workers;
 using Serilog;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 try
 {
@@ -11,9 +15,14 @@ try
         .ReadFrom.Configuration(hostBuilderContext.Configuration));
 
     // Add services to the container.
-
+   builder.Services.AddDbContext<WebHooksDbContext>(options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
+    });
+    builder.Services.AddSingleton<IPersistentQueue>(provider => new PersistentQueue(Directory.GetCurrentDirectory()));
     builder.Services.AddMediatR(typeof(Program).Assembly);
-
+    builder.Services.AddAutoMapper(typeof(Program));
+    builder.Services.AddHostedService<WebHookProcessorService>();
     builder.Services.AddControllers()
         .AddJsonOptions(options =>
         {
@@ -44,4 +53,3 @@ catch (Exception ex)
     Log.Fatal("Fatal error application failed with the following error:{Error}", ex);
     Log.CloseAndFlush();
 }
-
