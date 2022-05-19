@@ -1,5 +1,7 @@
 ﻿using System.Collections.Concurrent;
+using DiskQueue;
 using HookMaker.Data.Context;
+using HookMaker.Extensions;
 using MediatR;
 
 namespace HookMaker.Domain;
@@ -7,25 +9,30 @@ namespace HookMaker.Domain;
 public class NotificationsHandler:INotificationHandler<Notification>
 {
     private readonly WebHooksDbContext _context;
-    private readonly ConcurrentQueue<Notification> _notifications;
-
+    readonly IPersistentQueue _notificationsQueueStorage = new PersistentQueue(Directory.GetCurrentDirectory());
     public NotificationsHandler(WebHooksDbContext context)
     {
         _context = context;
-        _notifications = new ConcurrentQueue<Notification>();
     }
    
     //queue
     public Task Handle(Notification notification, CancellationToken cancellationToken)
     {
+        using var persistentQueueSession=_notificationsQueueStorage.OpenSession();
+        persistentQueueSession.Enqueue(notification.ToByteArray());
+        persistentQueueSession.Flush();
 
-        _notifications.Enqueue(notification);
-        
-        
         //Task.Run(() =>
         //{
         //    //send notification to queue
         //});
         return Unit.Task;
+    }
+
+
+
+    private void ProcessNotifications()
+    {
+        
     }
 }
