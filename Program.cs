@@ -19,9 +19,13 @@ try
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
     });
+   //register persistent queue implementation to allow same instance everywhere and data persisted to specific location
     builder.Services.AddSingleton<IPersistentQueue>(provider => new PersistentQueue(Directory.GetCurrentDirectory()));
     builder.Services.AddMediatR(typeof(Program).Assembly);
     builder.Services.AddAutoMapper(typeof(Program));
+    //register background service for long running tasks which will take care of spawning new threads for database insertion
+    //this registration can be commented out to test persistence of the queue,
+    //once it it re-enabled it will start processing all the unprocessed items in queue
     builder.Services.AddHostedService<WebHookProcessorService>();
     builder.Services.AddControllers()
         .AddJsonOptions(options =>
